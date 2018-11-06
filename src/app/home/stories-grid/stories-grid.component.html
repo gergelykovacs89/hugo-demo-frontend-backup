@@ -1,0 +1,14 @@
+<div class="card-columns" >
+    <div class="card" *ngFor="let story of getStories()">
+      <a class="card-link"
+         style="cursor: pointer"
+         routerLink='story/{{ story.id }}'>
+      <img class="card-img-top" src="{{ story.imgPath }}" alt="{{ story.storyTitle }}">
+      <div class="card-body">
+        <h5 class="card-title">{{ story.storyTitle }}</h5>
+        <p class="card-text">{{ story.storySummary }}</p>
+        <p class="card-text"><small class="text-muted">{{ story.author.name }}</small></p>
+      </div>
+      </a>
+    </div>
+</div>

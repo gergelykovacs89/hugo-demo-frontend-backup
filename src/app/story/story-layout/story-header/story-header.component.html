@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <img class="img-fluid" src="{{ story.imgPath }}">
+  <div class="row justify-content-center">
+    <div class="col-xl-8">
+      <h1 style="font-weight: bold">{{ story.storyTitle }}
+        <small class="text-muted">by: {{ story.author.name }}</small>
+        <button id="save-story" class="btn btn-secondary btn-sm">Save</button>
+      </h1>
+      <i class="fa fa-eye fa-lg" style="color: darkslategray"> 1</i><i class="fa fa-thumbs-up fa-lg" style="color: forestgreen"> 1</i><i class="fa fa-thumbs-down fa-lg" style="color: indianred"> 1</i>
+      <div id="tags">
+        <span class="badge badge-pill badge-dark">#tag1</span>
+        <span class="badge badge-pill badge-dark">#tag2</span>
+        <span class="badge badge-pill badge-dark">#tag3</span>
+        <span class="badge badge-pill badge-dark">#tag4</span>
+        <span class="badge badge-pill badge-dark">#tag5</span>
+      </div>
+    </div>
+  </div>
+</div>
+

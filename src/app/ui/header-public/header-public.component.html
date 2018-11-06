@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-white">
+  <div class="container-fluid">
+    <a class="navbar-brand" style="color: darkslategray" routerLink="/"><h2>hugo</h2></a>
+    <div class="navbar-collapse">
+        <button *ngIf="!auth0Service.isAuthenticated()" class="btn btn-outline-secondary"
+                style="cursor: pointer; color: darkslategray"
+                (click)="onLogin()">
+          Login</button>
+      <button *ngIf="auth0Service.isAuthenticated()" class="btn btn-outline-secondary"
+              style="cursor: pointer; color: darkslategray"
+              (click)="onLogout()">
+        Logout</button>
+
+      </div>
+    </div>
+</nav>
+

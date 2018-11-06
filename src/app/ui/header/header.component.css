@@ -1,0 +1,63 @@
+.navbar-nav {
+  overflow: hidden;
+}
+
+.navbar-brand {
+  margin-right: 10rem;
+}
+
+@media screen and (max-width: 600px) {
+  .navbar-collapse .search-container {
+    float: none;
+  }
+  .navbar-collapse a, .navbar-collapse input[type=text], .navbar-collapse {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+  }
+  .nav input[type=text] {
+    border: 1px solid #ccc;
+  }
+}
+
+.navbar-collapse input[type=text] {
+  padding: 6px;
+  margin-top: 4px;
+  font-size: 17px;
+  border:  1px solid darkslategray;
+}
+
+.navbar-collapse .search-container {
+  float: left;
+}
+
+.navbar-collapse a {
+  float: left;
+  display: block;
+  color: darkslategray;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+li:not(.show) .dropdown-menu {
+  display: none;
+}
+
+.btn-group li {
+  color: darkslategray;
+}
+
+.img-fluid {
+  margin-right: 1rem;
+  max-height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+
+

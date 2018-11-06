@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-white">
+  <div class="container-fluid">
+  <a class="navbar-brand" style="color: darkslategray" routerLink="/"><h2>hugo</h2></a>
+    <div class="navbar-collapse">
+      <div class="search-container" *ngIf="auth0Service.isAuthenticated() && profileService.isProfileSelected()">
+        <form>
+          <input id="search" type="text" placeholder="Search.." name="search" size="50">
+        </form>
+      </div>
+      <div class="navbar-collapse" *ngIf="auth0Service.isAuthenticated() && profileService.isProfileSelected()">
+        <a class="nav-item nav-link"
+           style="cursor: pointer"
+            routerLink='/profile/{{ author.id }}'>
+          <img
+            [src]="author.imgPath"
+            alt="{{ author.name }}"
+            class="img-fluid"
+          >{{ author.name }}
+        </a>
+        <button class="btn btn-outline-secondary"
+                style="cursor: pointer; color: darkslategray"
+                routerLink="/new-story">
+          New Story</button>
+      </div>
+    </div>
+      <div class="btn-group" dropdown placement="bottom right">
+        <button id="button-alignment" dropdownToggle type="button"
+                class="btn btn-secondary"
+                aria-controls="dropdown-alignment" style="border-radius: 60%"><i class="fa fa-cog fa-lg"></i></button>
+        <ul id="dropdown-alignment" *dropdownMenu class="dropdown-menu dropdown-menu-right"
+            role="menu" aria-labelledby="button-alignment">
+          <li role="menuitem"><a class="dropdown-item" (click)="onSelectAuthor()" *ngIf="auth0Service.isAuthenticated()" >Select Author</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item" *ngIf="auth0Service.isAuthenticated()" >Settings</a></li>
+          <li role="menuitem"><a class="dropdown-item" >About hugo</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="onLogout()" *ngIf="auth0Service.isAuthenticated()" >Logout</a></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="onLogin()" *ngIf="!auth0Service.isAuthenticated()">Login</a></li>
+        </ul>
+      </div>
+  </div>
+</nav>

@@ -1,0 +1,19 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card-columns">
+        <div class="card" *ngFor="let author of myAuthors">
+          <a class="card-link"
+             style="cursor: pointer"
+             (click)="onSelectProfile(author.id)"
+             >
+            <img class="card-img-top" src="{{ author.imgPath }}" alt="{{ author.name }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ author.name }}</h5>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
