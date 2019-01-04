@@ -1,2 +1,54 @@
-<app-profile-cube></app-profile-cube>
-<app-profile-control-panel></app-profile-control-panel>
+<div class="row" *ngIf="author">
+  <div id="profile-card" class="col-xl-10">
+    <img
+      [src]="author.imgPath"
+      alt="{{ author.name }}"
+      class="img-fluid"
+      style="max-height: 180px; max-width: 180px"
+    >
+    <h1 id="author-name">{{ author.name }}
+      <button *ngIf="!canFollow() && !isSelf() && auth0Service.isAuthenticated()" (click)="Follow()"
+              class="btn btn-secondary btn-sm">Follow
+      </button>
+      <button *ngIf="canFollow() && !isSelf() && auth0Service.isAuthenticated()" (click)="Unfollow()"
+              class="btn btn-outline-secondary btn-sm">Unfollow
+      </button>
+      <button *ngIf="isSelf() && auth0Service.isAuthenticated()" class="btn btn-outline-secondary btn-sm disabled">It's
+        a you!
+      </button>
+    </h1>
+    <div id="user-data">
+      <span style="font-weight: bold">{{ 0 }}</span><span style="margin-right: 1rem; "> stories</span><span
+      style="margin-right: 1rem">{{ author.followers.length }} followers</span><span
+      style="margin-right: 1rem">{{ author.following.length }} following</span>
+    </div>
+    <div id="profile-description">
+      <p style="word-break: break-word">{{ author.description }}</p>
+    </div>
+  </div>
+</div>
+<div *ngIf="author">
+  <tabset [justified]="true">
+    <tab>
+      <ng-template tabHeading>
+        <span class="badge badge-secondary">Stories</span>
+      </ng-template>
+      <app-stories-grid></app-stories-grid>
+    </tab>
+    <tab>
+      <ng-template tabHeading>
+        <span class="badge badge-secondary">Drafts</span>
+      </ng-template>
+      Text GRID TODO//
+    </tab>
+    <tab>
+      <ng-template tabHeading>
+        <span class="badge badge-secondary">Saved Stories</span>
+      </ng-template>
+      <app-stories-grid></app-stories-grid>
+    </tab>
+  </tabset>
+</div>
+
+
+

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import {ProfileService} from '../../profile/profile.service';
+import {Component, OnInit} from '@angular/core';
 import {AuthorModel} from '../../shared/models/author.model';
 import {AuthService} from '../../auth0/auth.service';
-import {Subscription} from 'rxjs';
 import {Router} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
+import {Logout, StartSelectAuthor} from '../../profile/store/profile.actions';
 
 @Component({
   selector: 'app-header',
@@ -11,21 +12,19 @@ import {Router} from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  authorSubscription: Subscription;
-  private author: AuthorModel;
-  constructor(private profileService: ProfileService,
-              private auth0Service: AuthService,
-              private router: Router) { }
+  public authorState: Observable<{ selectedAuthor: AuthorModel }>;
+
+  constructor(public auth0Service: AuthService,
+              private router: Router,
+              private store: Store<{
+                profile: {
+                  selectedAuthor: AuthorModel
+                }
+              }>) {
+  }
 
   ngOnInit() {
-    this.authorSubscription = this.profileService.selectedAuthorSub.subscribe(
-      (author: AuthorModel) => {
-        this.author = author;
-      }
-    );
-    this.author = this.profileService.selectedAuthor;
-    console.log(this.author.name);
-    console.log(this.profileService.isProfileSelected());
+    this.authorState = this.store.select('profile');
   }
 
   onLogin() {
@@ -33,12 +32,12 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout() {
+    this.store.dispatch(new Logout());
     this.auth0Service.logout();
   }
 
   onSelectAuthor() {
-    this.profileService.selectedAuthor = null;
-    this.profileService.selectedAuthorSub.next(null);
+    this.store.dispatch(new StartSelectAuthor());
     this.router.navigate(['/profiles']);
   }
 }

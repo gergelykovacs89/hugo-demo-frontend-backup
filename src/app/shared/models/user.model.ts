@@ -1,7 +1,7 @@
 import {AuthorModel} from './author.model';
 
 export class UserModel {
-  private id: number;
+  private _id: number;
   private _name: string;
   private _email: string;
   private _aliases: AuthorModel[] = [];
@@ -9,7 +9,7 @@ export class UserModel {
 
 
   constructor(id: number, name: string, email: string, password: string) {
-    this.id = id;
+    this._id = id;
     this._name = name;
     this._email = email;
     this.password = password;
@@ -26,5 +26,10 @@ export class UserModel {
 
   get aliases(): AuthorModel[] {
     return this._aliases;
+  }
+
+
+  get id(): number {
+    return this._id;
   }
 }

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {RecommendationsComponent} from '../home/recommendations/recommendations.component';
 import {ProfileLayoutComponent} from '../profile/profile-layout/profile-layout.component';
@@ -8,7 +8,7 @@ import {CallbackProfileSelectComponent} from '../home/callback-profile-select/ca
 
 const appRoutes: Routes = [
   {path: '', component: RecommendationsComponent },
-  {path: 'profile/:id', component: ProfileLayoutComponent },
+  {path: 'profile/:username', component: ProfileLayoutComponent},
   {path: 'story/:id', component: StoryLayoutComponent },
   {path: 'new-story', component: NewStoryComponent },
   {path: 'profiles', component: CallbackProfileSelectComponent }

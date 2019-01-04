@@ -2,25 +2,30 @@
   <div class="container-fluid">
   <a class="navbar-brand" style="color: darkslategray" routerLink="/"><h2>hugo</h2></a>
     <div class="navbar-collapse">
-      <div class="search-container" *ngIf="auth0Service.isAuthenticated() && profileService.isProfileSelected()">
+      <div class="search-container" *ngIf="auth0Service.isAuthenticated()">
         <form>
           <input id="search" type="text" placeholder="Search.." name="search" size="50">
         </form>
       </div>
-      <div class="navbar-collapse" *ngIf="auth0Service.isAuthenticated() && profileService.isProfileSelected()">
-        <a class="nav-item nav-link"
-           style="cursor: pointer"
-            routerLink='/profile/{{ author.id }}'>
-          <img
-            [src]="author.imgPath"
-            alt="{{ author.name }}"
-            class="img-fluid"
-          >{{ author.name }}
-        </a>
-        <button class="btn btn-outline-secondary"
-                style="cursor: pointer; color: darkslategray"
-                routerLink="/new-story">
-          New Story</button>
+      <div *ngIf="(authorState | async).selectedAuthor; else loading">
+        <div class="navbar-collapse"
+             *ngIf="auth0Service.isAuthenticated()"
+        >
+          <a class="nav-item nav-link"
+             style="cursor: pointer"
+             routerLink='/profile/{{ (authorState | async).selectedAuthor.name }}'>
+            <img
+              [src]="(authorState | async).selectedAuthor.imgPath"
+              alt="{{ (authorState | async).selectedAuthor.name}}"
+              class="img-fluid"
+            >{{ (authorState | async).selectedAuthor.name }}
+          </a>
+          <button class="btn btn-outline-secondary"
+                  style="cursor: pointer; color: darkslategray"
+                  routerLink="/new-story">
+            New Story
+          </button>
+        </div>
       </div>
     </div>
       <div class="btn-group" dropdown placement="bottom right">
@@ -40,3 +45,5 @@
       </div>
   </div>
 </nav>
+<ng-template #loading>Loading User Data...</ng-template>
+

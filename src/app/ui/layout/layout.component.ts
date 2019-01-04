@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../auth0/auth.service';
-import {ProfileService} from '../../profile/profile.service';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../store/app.reducers';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-layout',
@@ -8,11 +10,14 @@ import {ProfileService} from '../../profile/profile.service';
   styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent implements OnInit {
+  appState: Observable<{ selected: boolean }>;
 
-  constructor(private auth0Service: AuthService,
-              private profileService: ProfileService) { }
+  constructor(public auth0Service: AuthService,
+              public store: Store<AppState>) {
+  }
 
   ngOnInit() {
+    this.appState = this.store.select('profile');
   }
 
 }

@@ -1,4 +1,4 @@
-<app-header *ngIf="profileService.isProfileSelected()"></app-header>
-<app-header-public *ngIf="!profileService.isProfileSelected()"></app-header-public>
+<app-header *ngIf="(appState | async).selected"></app-header>
+<app-header-public *ngIf="!(appState | async).selected"></app-header-public>
 <router-outlet></router-outlet>
 <!--<app-footer></app-footer>-->

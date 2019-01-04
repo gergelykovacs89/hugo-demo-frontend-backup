@@ -1,19 +1,91 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xl-12">
-      <div class="card-columns">
-        <div class="card" *ngFor="let author of myAuthors">
-          <a class="card-link"
-             style="cursor: pointer"
-             (click)="onSelectProfile(author.id)"
-             >
-            <img class="card-img-top" src="{{ author.imgPath }}" alt="{{ author.name }}">
-            <div class="card-body">
-              <h5 class="card-title">{{ author.name }}</h5>
-            </div>
-          </a>
-        </div>
+      <div class="profile-list-label">
+        Who's writing?
       </div>
+      <ul class="profiles-list" style="align-content: center">
+        <li class="profiles-list-item" *ngFor="let author of (selectedAuthorState | async).authors">
+          <div class="profile-card"
+             >
+            <img class="card-img-top"
+                 src="{{ author.imgPath }}"
+                 alt="{{ author.name }}"
+                 (click)="onSelectProfile(author.name)"
+                 style="cursor: pointer">
+            <div class="card-body">
+              <span class="profile-name">{{ author.name }}</span>
+              <div *ngIf="manageMode">
+                <br>
+                <button type="button"
+                        class="btn btn-warning"
+                        (click)="onEdit(author.name)"
+                        [disabled]="this.editMode"
+                        style="border-radius: 50%"><i class="fa fa-edit fa-lg"></i></button>
+                <button type="button"
+                        class="btn btn-danger pull-right"
+                        (click)="onDelete(author.name)"
+                        style="border-radius: 50%"><i class="fa fa-trash fa-lg"></i></button>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li>
+          <button class="btn btn-outline-secondary"
+                  style="cursor: pointer; color: darkslategray;"
+                  (click)="onNewAuthor()"
+                  *ngIf="!manageMode">+ author
+          </button>
+        </li>
+      </ul>
+    </div>
+    <br>
+    <div class="profile-manager">
+      <button class="btn btn-outline-secondary"
+              style="cursor: pointer; color: darkslategray"
+              (click)="onManage()"
+              *ngIf="!manageMode">manage authors
+      </button>
+      <button class="btn btn-outline-secondary"
+              style="cursor: pointer; color: darkslategray"
+              (click)="cancelManage()"
+              *ngIf="manageMode">done
+      </button>
+      <button type="button" *ngIf="formMode" class="btn btn-outline-danger" (click)="onCancel()">Cancel</button>
+      <form [formGroup]="authorForm" (ngSubmit)="onSubmit()" *ngIf="formMode">
+        <div class="form-group">
+          <label for="name">Author's name</label>
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            class="form-control"
+            #name>
+        </div>
+        <div class="form-group">
+          <label for="imgPath">Image URL</label>
+          <input
+            type="text"
+            id="imgPath"
+            formControlName="imgPath"
+            class="form-control"
+            #imgPath>
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea
+            type="text"
+            id="description"
+            class="form-control"
+            formControlName="description"
+            rows="6"></textarea>
+        </div>
+        <button
+          type="submit"
+          class="btn btn-outline-success"
+          [disabled]="!authorForm.valid">Save
+        </button>
+      </form>
     </div>
   </div>
 </div>

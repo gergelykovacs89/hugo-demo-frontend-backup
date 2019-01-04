@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../auth0/auth.service';
+import {Store} from '@ngrx/store';
+import {AuthorModel} from '../../shared/models/author.model';
+import {Logout} from '../../profile/store/profile.actions';
 
 @Component({
   selector: 'app-header-public',
@@ -8,10 +11,15 @@ import {AuthService} from '../../auth0/auth.service';
 })
 export class HeaderPublicComponent implements OnInit {
 
-  constructor(private auth0Service: AuthService) { }
+  constructor(private auth0Service: AuthService,
+              private store: Store<{
+                profile: {
+                  selectedAuthor: AuthorModel
+                }
+              }>) {
+  }
 
   ngOnInit() {
-    console.log('Not Public header init');
   }
 
   onLogin() {
@@ -19,6 +27,7 @@ export class HeaderPublicComponent implements OnInit {
   }
 
   onLogout() {
+    this.store.dispatch(new Logout());
     this.auth0Service.logout();
   }
 }
