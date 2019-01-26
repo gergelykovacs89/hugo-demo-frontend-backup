@@ -5,9 +5,13 @@ import {ProfileLayoutComponent} from '../profile/profile-layout/profile-layout.c
 import {StoryLayoutComponent} from '../story/story-layout/story-layout.component';
 import {NewStoryComponent} from '../story/new-story/new-story.component';
 import {CallbackProfileSelectComponent} from '../home/callback-profile-select/callback-profile-select.component';
+import {RegisterComponent} from '../home/register/register.component';
+import {LoginComponent} from '../home/login/login.component';
 
 const appRoutes: Routes = [
   {path: '', component: RecommendationsComponent },
+  {path: 'register', component: RegisterComponent },
+  {path: 'login', component: LoginComponent },
   {path: 'profile/:username', component: ProfileLayoutComponent},
   {path: 'story/:id', component: StoryLayoutComponent },
   {path: 'new-story', component: NewStoryComponent },

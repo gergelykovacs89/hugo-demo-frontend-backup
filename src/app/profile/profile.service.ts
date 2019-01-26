@@ -23,7 +23,6 @@ export class ProfileService implements OnInit {
 
   ngOnInit() {
     this.store.subscribe((state) => {
-      console.log(state.profile.authors);
       this.userAuthors = state.profile.authors;
     });
   }

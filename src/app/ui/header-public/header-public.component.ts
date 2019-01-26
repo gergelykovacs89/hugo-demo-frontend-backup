@@ -3,6 +3,7 @@ import {AuthService} from '../../auth0/auth.service';
 import {Store} from '@ngrx/store';
 import {AuthorModel} from '../../shared/models/author.model';
 import {Logout} from '../../profile/store/profile.actions';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header-public',
@@ -17,14 +18,16 @@ export class HeaderPublicComponent implements OnInit {
                 profile: {
                   selectedAuthor: AuthorModel
                 }
-              }>) {
+              }>,
+              private router: Router) {
   }
 
   ngOnInit() {
   }
 
   onLogin() {
-    this.auth0Service.login();
+    // this.auth0Service.login();
+    this.router.navigate(['/login']);
   }
 
   onLogout() {
@@ -33,6 +36,6 @@ export class HeaderPublicComponent implements OnInit {
   }
 
   onRegister() {
-
+    this.router.navigate(['/register']);
   }
 }

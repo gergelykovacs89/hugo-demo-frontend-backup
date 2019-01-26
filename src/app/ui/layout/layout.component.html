@@ -1,4 +1,6 @@
 <app-header *ngIf="(appState | async).selected"></app-header>
 <app-header-public *ngIf="!(appState | async).selected"></app-header-public>
-<router-outlet></router-outlet>
+<div id="router-outlet">
+  <router-outlet></router-outlet>
+</div>
 <!--<app-footer></app-footer>-->

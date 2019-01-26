@@ -1,17 +1,27 @@
 import {Injectable} from '@angular/core';
-import {UserModel} from '../shared/models/user.model';
-import {DataStorageDummyService} from '../shared/data-storage-dummy.service';
+import {HttpClient} from '@angular/common/http';
+
+const REG_API_ENDPOINT = 'http://localhost:3000/api/register';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService {
-  constructor(private dataStorage: DataStorageDummyService) {
+
+
+
+  constructor(private httpClient: HttpClient) {
   }
 
 
-  public getUserById(userId: number): UserModel {
-    return this.dataStorage.getUserById(userId);
+  registerUser(userData) {
+    return this.httpClient.post(REG_API_ENDPOINT, {
+      email: userData.email,
+      password: userData.password,
+      fullName: userData.fullName
+    });
   }
+
 }
 
