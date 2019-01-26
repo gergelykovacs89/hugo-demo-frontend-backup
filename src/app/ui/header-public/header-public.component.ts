@@ -10,6 +10,7 @@ import {Logout} from '../../profile/store/profile.actions';
   styleUrls: ['./header-public.component.css']
 })
 export class HeaderPublicComponent implements OnInit {
+  public isCollapsed = true;
 
   constructor(private auth0Service: AuthService,
               private store: Store<{
@@ -29,5 +30,9 @@ export class HeaderPublicComponent implements OnInit {
   onLogout() {
     this.store.dispatch(new Logout());
     this.auth0Service.logout();
+  }
+
+  onRegister() {
+
   }
 }

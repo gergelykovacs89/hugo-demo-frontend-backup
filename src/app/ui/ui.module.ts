@@ -6,12 +6,14 @@ import { FooterComponent } from './footer/footer.component';
 import {BootstrapModule} from '../shared/bootstrap/bootstrap.module';
 import {RouterModule} from '@angular/router';
 import { HeaderPublicComponent } from './header-public/header-public.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
     CommonModule,
     BootstrapModule,
-    RouterModule
+    RouterModule,
+    NgbModule
   ],
   declarations: [LayoutComponent, HeaderComponent, FooterComponent, HeaderPublicComponent],
   exports: [

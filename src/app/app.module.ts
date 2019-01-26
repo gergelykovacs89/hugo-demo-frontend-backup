@@ -18,6 +18,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
 import {localStorageSync} from 'ngrx-store-localstorage';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({keys: ['profile'], rehydrate: true})(reducer);
@@ -44,6 +45,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     BootstrapModule,
     ReactiveFormsModule,
     TabsModule.forRoot(),
+    NgbModule,
     EffectsModule.forRoot([]),
     StoreModule.forRoot(reducers, {metaReducers}),
     environment ? StoreDevtoolsModule.instrument() : []
