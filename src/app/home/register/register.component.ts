@@ -56,8 +56,8 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
      this.userService.registerUser(this.userForm.value)
        .subscribe((res) => {
-         if (res.status === 'OK') {
-           alert(res.message);
+         if (res['status'] === 'OK') {
+           alert(res['message']);
            this.router.navigate(['/login']);
          }  else {
            alert('Something went wrong..., please try again');

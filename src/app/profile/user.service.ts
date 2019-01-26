@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 const REG_API_ENDPOINT = 'http://localhost:3000/api/register';
-
+const LOGIN_API_ENDPOINT = 'http://localhost:3000/api/login';
 @Injectable({
   providedIn: 'root'
 })
@@ -23,5 +23,11 @@ export class UserService {
     });
   }
 
+  loginUser(credentials) {
+    return this.httpClient.post(LOGIN_API_ENDPOINT, {
+      email: credentials.email,
+      password: credentials.password
+    });
+  }
 }
 
