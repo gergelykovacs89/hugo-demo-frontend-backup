@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../auth0/auth.service';
+import {AuthService} from '../../auth/auth.service';
 import {AuthorModel} from '../../shared/models/author.model';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthorModel} from '../../shared/models/author.model';
-import {AuthService} from '../../auth0/auth.service';
+import {AuthService} from '../../auth/auth.service';
 import {Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';

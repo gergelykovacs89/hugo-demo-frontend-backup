@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AuthService} from './auth0/auth.service';
+import {AuthService} from './auth/auth.service';
 import {Store} from '@ngrx/store';
 import {AppState} from './store/app.reducers';
 import {Router} from '@angular/router';

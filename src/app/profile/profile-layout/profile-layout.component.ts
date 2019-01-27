@@ -5,7 +5,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.reducers';
-import {AuthService} from '../../auth0/auth.service';
+import {AuthService} from '../../auth/auth.service';
 
 @Component({
   selector: 'app-profile-layout',

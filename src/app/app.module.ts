@@ -12,13 +12,14 @@ import {StoryModule} from './story/story.module';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import {CallbackProfileSelectComponent} from './home/callback-profile-select/callback-profile-select.component';
 import {ActionReducer, MetaReducer, StoreModule} from '@ngrx/store';
-import {HttpClientModule, HttpClientXsrfModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule} from '@angular/common/http';
 import {reducers} from './store/app.reducers';
 import {EffectsModule} from '@ngrx/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {environment} from '../environments/environment';
 import {localStorageSync} from 'ngrx-store-localstorage';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {JwtInterceptor} from './shared/interceptors/jwt.interceptor';
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({keys: ['profile'], rehydrate: true})(reducer);
@@ -50,7 +51,9 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     StoreModule.forRoot(reducers, {metaReducers}),
     environment ? StoreDevtoolsModule.instrument() : []
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

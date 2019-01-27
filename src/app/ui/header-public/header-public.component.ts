@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../auth0/auth.service';
+import {AuthService} from '../../auth/auth.service';
 import {Store} from '@ngrx/store';
 import {AuthorModel} from '../../shared/models/author.model';
 import {Logout} from '../../profile/store/profile.actions';
@@ -13,7 +13,7 @@ import {Router} from '@angular/router';
 export class HeaderPublicComponent implements OnInit {
   public isCollapsed = true;
 
-  constructor(private auth0Service: AuthService,
+  constructor(private authService: AuthService,
               private store: Store<{
                 profile: {
                   selectedAuthor: AuthorModel
@@ -26,13 +26,15 @@ export class HeaderPublicComponent implements OnInit {
   }
 
   onLogin() {
-    // this.auth0Service.login();
     this.router.navigate(['/login']);
   }
 
   onLogout() {
-    this.store.dispatch(new Logout());
-    this.auth0Service.logout();
+    this.authService.logout()
+      .subscribe((res) => {
+        alert(res['status']);
+        this.router.navigate(['/']);
+      });
   }
 
   onRegister() {

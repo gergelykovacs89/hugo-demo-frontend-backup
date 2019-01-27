@@ -1,5 +1,5 @@
-<app-header *ngIf="(appState | async).selected"></app-header>
-<app-header-public *ngIf="!(appState | async).selected"></app-header-public>
+<app-header *ngIf="auth0Service.isAuthenticated()"></app-header>
+<app-header-public *ngIf="!auth0Service.isAuthenticated()"></app-header-public>
 <div id="router-outlet">
   <router-outlet></router-outlet>
 </div>

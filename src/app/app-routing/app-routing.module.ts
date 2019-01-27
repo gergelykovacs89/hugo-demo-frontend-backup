@@ -7,6 +7,7 @@ import {NewStoryComponent} from '../story/new-story/new-story.component';
 import {CallbackProfileSelectComponent} from '../home/callback-profile-select/callback-profile-select.component';
 import {RegisterComponent} from '../home/register/register.component';
 import {LoginComponent} from '../home/login/login.component';
+import {AuthGuard} from '../auth/auth.guard';
 
 const appRoutes: Routes = [
   {path: '', component: RecommendationsComponent },
@@ -14,8 +15,9 @@ const appRoutes: Routes = [
   {path: 'login', component: LoginComponent },
   {path: 'profile/:username', component: ProfileLayoutComponent},
   {path: 'story/:id', component: StoryLayoutComponent },
-  {path: 'new-story', component: NewStoryComponent },
-  {path: 'profiles', component: CallbackProfileSelectComponent }
+  {path: 'new-story', component: NewStoryComponent, canActivate: [AuthGuard]},
+  {path: 'profiles', component: CallbackProfileSelectComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

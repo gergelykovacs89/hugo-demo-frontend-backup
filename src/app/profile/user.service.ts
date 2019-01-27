@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 const REG_API_ENDPOINT = 'http://localhost:3000/api/register';
-const LOGIN_API_ENDPOINT = 'http://localhost:3000/api/login';
+const LOGOUT_API_ENDPOINT = 'http://localhost:3000/api/logout';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -23,11 +24,12 @@ export class UserService {
     });
   }
 
-  loginUser(credentials) {
-    return this.httpClient.post(LOGIN_API_ENDPOINT, {
-      email: credentials.email,
-      password: credentials.password
-    });
+  removeUserToken(userToken: string) {
+    const headers = new HttpHeaders()
+      .append('x-auth', userToken);
+    return this.httpClient.delete(LOGOUT_API_ENDPOINT, {headers: headers});
   }
+
+
 }
 

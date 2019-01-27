@@ -8,17 +8,20 @@
         <li class="nav-item">
           <button class="btn btn-outline-secondary" id="login"
                   style="cursor: pointer; color: darkslategray"
-                  (click)="onLogin()">
+                  (click)="onLogin()"
+          *ngIf="!authService.isAuthenticated()">
             Login
           </button>
           <button class="btn btn-outline-secondary" id="register"
                   style="cursor: pointer; color: darkslategray"
-                  (click)="onRegister()">
+                  (click)="onRegister()"
+                  *ngIf="!authService.isAuthenticated()">
             Register
           </button>
           <button class="btn btn-outline-secondary" id="logout"
                   style="cursor: pointer; color: darkslategray"
-                  (click)="onLogout()">
+                  (click)="onLogout()"
+                  *ngIf="authService.isAuthenticated()">
             Logout
           </button>
         </li>
