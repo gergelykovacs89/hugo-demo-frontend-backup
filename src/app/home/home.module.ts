@@ -6,6 +6,7 @@ import { StoriesGridComponent } from './stories-grid/stories-grid.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { AuthorManagerComponent } from './callback-profile-select/author-manager/author-manager.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [RecommendationsComponent, StoriesGridComponent, RegisterComponent, LoginComponent],
+  declarations: [RecommendationsComponent, StoriesGridComponent, RegisterComponent, LoginComponent, AuthorManagerComponent],
   exports: [RecommendationsComponent, StoriesGridComponent, RegisterComponent, LoginComponent]
 })
 export class HomeModule { }

@@ -28,16 +28,17 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogin() {
-    this.auth0Service.login();
+    this.router.navigate(['/login']);
   }
 
   onLogout() {
-    this.store.dispatch(new Logout());
-    this.auth0Service.logout();
+    this.auth0Service.logout().subscribe((res) => {
+      alert(res['status']);
+      this.router.navigate(['/']);
+    });
   }
 
   onSelectAuthor() {
-    this.store.dispatch(new StartSelectAuthor());
     this.router.navigate(['/profiles']);
   }
 }

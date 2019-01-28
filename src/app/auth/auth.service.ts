@@ -1,20 +1,21 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
-import {Store} from '@ngrx/store';
-import {AppState} from '../store/app.reducers';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {UserService} from '../profile/user.service';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {AuthorModel} from '../shared/models/author.model';
+import {ProfileService} from '../profile/profile.service';
 
 
 const LOGIN_API_ENDPOINT = 'http://localhost:3000/api/login';
+const GET_AUTHORS_API_ENDPOINT = 'http://localhost:3000/api/user-authors';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-
+  authors = new BehaviorSubject<AuthorModel[]>([]);
 
   constructor(public router: Router,
               private httpClient: HttpClient,
@@ -30,14 +31,26 @@ export class AuthService {
         if (res) {
           localStorage.setItem('currentUser', JSON.stringify(res['user'], ['email', '_id']));
           localStorage.setItem('userToken', JSON.stringify(res['user']['userToken']));
+          this.authors.next(res['authors']);
         }
         return res;
       }));
   }
 
+  getAuthorsByUser(): Observable<any> {
+    const userToken = JSON.parse(localStorage.getItem('userToken'));
+    const headers = new HttpHeaders()
+      .append('x-auth', userToken);
+    return this.httpClient.get<any>(GET_AUTHORS_API_ENDPOINT, {headers: headers});
+  }
+
   public handleAuthentication(): void {
       if (this.isAuthenticated()) {
-        this.router.navigate(['/profiles']);
+        this.getAuthorsByUser()
+          .subscribe((authors) => {
+            this.authors.next(authors);
+            this.router.navigate(['/profiles']);
+          });
       } else {
         this.router.navigate(['/']);
       }
@@ -52,6 +65,7 @@ export class AuthService {
   }
 
   public logout() {
+    console.log('clicked');
     // Remove tokens and expiry time from localStorage
     const userToken = JSON.parse(localStorage.getItem('userToken'));
     return this.userService.removeUserToken(userToken)
@@ -74,6 +88,10 @@ export class AuthService {
     // Access Token's expiry time
     const userToken = JSON.parse(localStorage.getItem('userToken'));
     return !!userToken;
+  }
+
+  public getAuthors(): Observable<AuthorModel[]> {
+    return this.authors.asObservable();
   }
 
 }

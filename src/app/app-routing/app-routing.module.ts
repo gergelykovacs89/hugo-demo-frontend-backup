@@ -8,6 +8,8 @@ import {CallbackProfileSelectComponent} from '../home/callback-profile-select/ca
 import {RegisterComponent} from '../home/register/register.component';
 import {LoginComponent} from '../home/login/login.component';
 import {AuthGuard} from '../auth/auth.guard';
+import {AuthorModel} from '../shared/models/author.model';
+import {AuthorManagerComponent} from '../home/callback-profile-select/author-manager/author-manager.component';
 
 const appRoutes: Routes = [
   {path: '', component: RecommendationsComponent },
@@ -16,7 +18,8 @@ const appRoutes: Routes = [
   {path: 'profile/:username', component: ProfileLayoutComponent},
   {path: 'story/:id', component: StoryLayoutComponent },
   {path: 'new-story', component: NewStoryComponent, canActivate: [AuthGuard]},
-  {path: 'profiles', component: CallbackProfileSelectComponent, canActivate: [AuthGuard] },
+  {path: 'profiles', component: CallbackProfileSelectComponent, canActivate: [AuthGuard]},
+  {path: 'profiles/manage', component: AuthorManagerComponent, canActivate: [AuthGuard]},
   { path: '**', redirectTo: '' }
 ];
 
