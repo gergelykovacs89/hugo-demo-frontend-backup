@@ -1,23 +1,23 @@
 .profile-select {
-  margin: 4em 0;
+  margin: 4rem 0;
   position: relative;
 }
 .profile-select h1{
   color: darkslategray;
-  margin: 2em;
+  margin: 2rem;
 }
 .profile-select .card {
   box-shadow: 0 0 20px #ccc;
-  width: 10em;
+  width: 10rem;
 }
-.profile-select .card img{
-  width: 10em;
-  height: 10em;
+.profile-select .card img {
+  width: 10rem;
+  height: 10rem;
   object-fit: cover;
 }
 @media only screen and (max-width: 768px) {
   .profile-select .card img{
-    width: 10em;
+    width: 10rem;
   }
 }
 .profile-select .card-title{
@@ -26,19 +26,23 @@
 }
 
 .profile-select .card .card-body {
-  padding: 1em;
+  padding: 1rem;
 }
 
 .profile-list-label h4 {
-  font-size: 4em;
+  font-size: 4rem;
   text-align: center;
 }
 
 #profile-card {
-  padding-right: 6em;
-  padding-bottom: 2em;
+  padding-right: 2rem;
+  padding-bottom: 2rem;
 }
 
+#card-buttons {
+  display: inline-grid;
+  max-height: 10rem;
+}
 
 
 

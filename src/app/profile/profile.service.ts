@@ -7,6 +7,7 @@ import {parse, stringify} from 'flatted/esm';
 import {AuthService} from '../auth/auth.service';
 
 const ADD_AUTHOR_API_ENDPOINT = 'http://localhost:3000/api/new-author';
+const UPDATE_AUTHOR_API_ENDPOINT = 'http://localhost:3000/api/update-author';
 
 
 @Injectable({
@@ -36,6 +37,19 @@ export class ProfileService implements OnInit {
       description: author.description,
       imgPath: author.imgPath
     },
+      {headers: headers});
+  }
+
+  updateAuthor(author: AuthorModel) {
+    const userToken = JSON.parse(localStorage.getItem('userToken'));
+    const headers = new HttpHeaders()
+      .append('x-auth', userToken);
+    return this.httpClient.put(UPDATE_AUTHOR_API_ENDPOINT, {
+        _id: author._id,
+        name: author.name,
+        description: author.description,
+        imgPath: author.imgPath
+      },
       {headers: headers});
   }
 

@@ -5,7 +5,7 @@
     </div>
     <div class="row justify-content-center">
       <div class="card-deck justify-content-center">
-        <div class="col-md-6 col-lg-4 col-sm-6" id="profile-card" *ngFor="let author of this.authors">
+        <div class="col-md-3 col-lg-2 col-sm-4" id="profile-card" *ngFor="let author of this.authors">
           <div class="card">
             <img class="img-fluid"
                  src="{{ author.imgPath }}"
@@ -20,13 +20,14 @@
             </div>
           </div>
         </div>
+        <div class="card-link" id="card-buttons">
+          <button class="btn btn-outline-secondary"
+                  style="cursor: pointer; color: darkslategray"
+                  [routerLink]="['manage']"><h4 class="card-title">manage<br>authors</h4>
+          </button>
+        </div>
       </div>
       </div>
-    <button class="btn btn-outline-secondary"
-            style="cursor: pointer; color: darkslategray"
-            [routerLink]="['manage']"
-    >manage authors
-    </button>
     </div>
   </div>
 
