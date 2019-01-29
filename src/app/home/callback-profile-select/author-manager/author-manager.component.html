@@ -1,42 +1,37 @@
-<div class="profile-select" id="profile-select">
-  <div class="container-fluid">
-    <div class="profile-list-label">
-      <h3>Manage</h3>
+<div class="container-fluid justify-content-center">
+  <div class="profile-select" id="profile-select">
+    <div class="profile-manage-label">
+      Manage Profiles
     </div>
-    <div class="row justify-content-center">
-      <div class="card-deck justify-content-center">
-        <div class="col-md-3 col-lg-2 col-sm-4" id="profile-manage-card" *ngFor="let author of this.authors" >
-          <div class="card">
-            <img class="img-fluid" id="image"
-                 src="{{ author.imgPath }}"
-                 alt="{{ author.name }}"
-            >
-            <div class="middle">
-              <button type="button"
-                      class="btn btn-warning"
-                      (click)="onEdit(author.name)"
-                      style="border-radius: 50%; height: 3em; width: 3em"><i class="fa fa-edit fa-lg"></i>
-              </button>
-              <button type="button"
-                      class="btn btn-danger pull-right"
-                      (click)="onDelete(author.name)"
-                      style="border-radius: 50%; height: 3em; width: 3em"><i class="fa fa-trash fa-lg"></i>
-              </button>
-            </div>
+    <ul class="profile-choose">
+      <li class="profile" *ngFor="let author of this.authors">
+        <div class="card">
+          <img class="img-fluid" id="image"
+               src="{{ author.imgPath }}"
+               alt="{{ author.name }}"
+          >
+          <div class="middle">
+            <button type="button"
+                    id="edit-button"
+                    class="btn btn-warning"
+                    (click)="onEdit(author.name)"
+                    ><i style="height: 3vw; weight: 3vw" class="fa fa-edit fa-lg"></i>
+            </button>
           </div>
         </div>
-        <div class="card-link" id="card-buttons">
-          <button class="btn btn-outline-secondary"
-                  style="cursor: pointer; color: darkslategray"
-                  (click)="toggleForm()"><h4 class="card-title">{{showForm ? 'cancel' : '+ author'}}</h4>
-          </button>
-          <button type="button"
-                  class="btn btn-danger"
-                  style="cursor: pointer"
-                  [routerLink]="['/profiles']"><h4 class="card-title" style="color: black;">back</h4>
-          </button>
-        </div>
-      </div>
+      </li>
+    </ul>
+    <div class="manage-buttons">
+        <button class="btn btn-outline-secondary"
+                style="cursor: pointer; color: darkslategray"
+                (click)="toggleForm()"><h4 class="card-title">{{showForm ? 'cancel' : '+ author'}}</h4>
+        </button>
+        <button type="button"
+                class="btn btn-danger"
+                style="cursor: pointer"
+                *ngIf="!showForm"
+                [routerLink]="['/profiles']"><h4 class="card-title" style="color: black;">back</h4>
+        </button>
     </div>
   </div>
 </div>
@@ -44,7 +39,21 @@
   <div class="row justify-content-center">
     <div class="col-xl-6 col-lg-8 col-md-10 col-sm-12">
       <div class="profile-manager">
+
         <form [formGroup]="authorForm" (ngSubmit)="onSubmit()" *ngIf="showForm">
+          <button type="button"
+                  id="delete-button"
+                  class="btn btn-danger pull-right"
+                  *ngIf="editMode"
+                  (click)="onDelete(authorForm.get('name').value)"
+          ><i class="fa fa-trash fa-lg"></i>
+          </button>
+          <button
+            type="submit"
+            id="save-button"
+            class="btn btn-outline-success pull-right"
+            [disabled]="!authorForm.valid">Save
+          </button>
           <div class="form-group">
             <label for="name">Author's name</label>
             <input
@@ -72,11 +81,6 @@
               formControlName="description"
               rows="6"></textarea>
           </div>
-          <button
-            type="submit"
-            class="btn btn-outline-success"
-            [disabled]="!authorForm.valid">Save
-          </button>
         </form>
       </div>
 

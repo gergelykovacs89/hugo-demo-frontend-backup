@@ -8,6 +8,7 @@ import {AuthService} from '../auth/auth.service';
 
 const ADD_AUTHOR_API_ENDPOINT = 'http://localhost:3000/api/new-author';
 const UPDATE_AUTHOR_API_ENDPOINT = 'http://localhost:3000/api/update-author';
+const DELETE_AUTHOR_API_ENDPOINT = 'http://localhost:3000/api/delete-author';
 
 
 @Injectable({
@@ -53,6 +54,14 @@ export class ProfileService implements OnInit {
       {headers: headers});
   }
 
+  deleteAuthor(authorName: string) {
+    const userToken = JSON.parse(localStorage.getItem('userToken'));
+    const headers = new HttpHeaders()
+      .append('x-auth', userToken)
+      .append('authName', authorName);
+    return this.httpClient.delete(DELETE_AUTHOR_API_ENDPOINT, {headers: headers});
+  }
+
 
   getAuthorByName(name: string): Observable<AuthorModel> {
     return this.httpClient.get<AuthorModel>('http://localhost:8080/author/' + name);
@@ -65,6 +74,4 @@ export class ProfileService implements OnInit {
   removeFollower(follower: AuthorModel, following: AuthorModel) {
 
   }
-
-
 }

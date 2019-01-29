@@ -1,11 +1,10 @@
-<div class="profile-select" id="profile-select">
-  <div class="container-fluid">
+  <div class="container-fluid justify-content-center">
+    <div class="profile-select" id="profile-select">
     <div class="profile-list-label">
-      <h4>Who's writing?</h4>
+      Who's writing?
     </div>
-    <div class="row justify-content-center">
-      <div class="card-deck justify-content-center">
-        <div class="col-md-3 col-lg-2 col-sm-4" id="profile-card" *ngFor="let author of this.authors">
+      <ul class="profile-choose">
+        <li class="profile" *ngFor="let author of this.authors">
           <div class="card">
             <img class="img-fluid"
                  src="{{ author.imgPath }}"
@@ -14,21 +13,17 @@
                  style="cursor: pointer">
             <div class="card-body">
               <h4 class="card-title">{{ author.name }}</h4>
-              <p class="card-text">
-                Profile info... TODO
-              </p>
             </div>
           </div>
-        </div>
-        <div class="card-link" id="card-buttons">
-          <button class="btn btn-outline-secondary"
-                  style="cursor: pointer; color: darkslategray"
-                  [routerLink]="['manage']"><h4 class="card-title">manage<br>authors</h4>
-          </button>
+        </li>
+      </ul>
+          <div id="card-buttons">
+            <button class="btn btn-outline-secondary"
+                    style="cursor: pointer; color: darkslategray"
+                    [routerLink]="['manage']"><h4 class="card-title">manage<br>authors</h4>
+            </button>
         </div>
       </div>
       </div>
-    </div>
-  </div>
 
 

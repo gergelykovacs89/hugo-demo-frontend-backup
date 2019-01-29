@@ -29,7 +29,18 @@ export class AuthorManagerComponent implements OnInit {
   }
 
   onDelete(authorName: string) {
-
+    if (confirm(`Delete ${authorName}?`)) {
+      const deletedAuthorIndex = this.authors.findIndex(author => author.name === authorName);
+      this.authorService.deleteAuthor(authorName)
+        .subscribe((res) => {
+          if (res['status'] === 'DELETED') {
+            this.authors.splice(deletedAuthorIndex, 1);
+            this.authService.authors.next(this.authors);
+          } else {
+            alert('Deletion failed');
+          }
+        });
+    }
   }
 
   onEdit(authorName: string) {
@@ -47,7 +58,7 @@ export class AuthorManagerComponent implements OnInit {
       this.authorForm.value._id = this.editedAuthor._id;
       this.authorService.updateAuthor(this.authorForm.value)
         .subscribe((updatedAuthor: AuthorModel) => {
-          const authorToUpdateIndex = this.authors.findIndex(author => author.name === updatedAuthor.name);
+          const authorToUpdateIndex = this.authors.findIndex(author => author._id === updatedAuthor._id);
           this.authors[authorToUpdateIndex] = updatedAuthor;
           this.authService.authors.next(this.authors);
           this.editMode = !this.editMode;
@@ -79,6 +90,10 @@ export class AuthorManagerComponent implements OnInit {
       'imgPath': new FormControl(authorImagePath, Validators.required),
       'description': new FormControl(authorDescription, Validators.required)
     });
+
+    if (this.editMode) {
+      this.authorForm.get('name').disable();
+    }
   }
 
   toggleForm() {
