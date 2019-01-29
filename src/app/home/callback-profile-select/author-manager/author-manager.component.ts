@@ -36,6 +36,7 @@ export class AuthorManagerComponent implements OnInit {
           if (res['status'] === 'DELETED') {
             this.authors.splice(deletedAuthorIndex, 1);
             this.authService.authors.next(this.authors);
+            this.toggleForm();
           } else {
             alert('Deletion failed');
           }

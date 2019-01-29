@@ -9,7 +9,7 @@
             <img class="img-fluid"
                  src="{{ author.imgPath }}"
                  alt="{{ author.name }}"
-                 (click)="onSelectProfile(author.name)"
+                 (click)="onSelectProfile(author._id, author.name)"
                  style="cursor: pointer">
             <div class="card-body">
               <h4 class="card-title">{{ author.name }}</h4>

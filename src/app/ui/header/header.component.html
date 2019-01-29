@@ -2,23 +2,23 @@
   <div class="container-fluid">
   <a class="navbar-brand" style="color: darkslategray" routerLink="/"><h2>hugo</h2></a>
     <div class="navbar-collapse">
-      <div class="search-container" *ngIf="auth0Service.isAuthenticated()">
+      <div class="search-container" *ngIf="auth0Service.isUserAuthenticated()">
         <form>
           <input id="search" type="text" placeholder="Search.." name="search" size="50">
         </form>
       </div>
-      <div *ngIf="(authorState | async).selectedAuthor; else loading">
+      <div *ngIf="selectedAuthor; else loading">
         <div class="navbar-collapse"
-             *ngIf="auth0Service.isAuthenticated()"
+             *ngIf="auth0Service.isUserAuthenticated()"
         >
           <a class="nav-item nav-link"
              style="cursor: pointer"
-             routerLink='/profile/{{ (authorState | async).selectedAuthor.name }}'>
+             routerLink='/profile/{{ selectedAuthor.name }}'>
             <img
-              [src]="(authorState | async).selectedAuthor.imgPath"
-              alt="{{ (authorState | async).selectedAuthor.name}}"
+              [src]="selectedAuthor.imgPath"
+              alt="{{ selectedAuthor.name}}"
               class="img-fluid"
-            >{{ (authorState | async).selectedAuthor.name }}
+            >{{ selectedAuthor.name }}
           </a>
           <button class="btn btn-outline-secondary"
                   style="cursor: pointer; color: darkslategray"
@@ -34,13 +34,13 @@
                 aria-controls="dropdown-alignment" style="border-radius: 60%"><i class="fa fa-cog fa-lg"></i></button>
         <ul id="dropdown-alignment" *dropdownMenu class="dropdown-menu dropdown-menu-right"
             role="menu" aria-labelledby="button-alignment">
-          <li role="menuitem"><a class="dropdown-item" (click)="onSelectAuthor()" *ngIf="auth0Service.isAuthenticated()" >Select Author</a></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="onSelectAuthor()" *ngIf="auth0Service.isUserAuthenticated()" >Select Author</a></li>
           <li class="divider dropdown-divider"></li>
-          <li role="menuitem"><a class="dropdown-item" *ngIf="auth0Service.isAuthenticated()" >Settings</a></li>
+          <li role="menuitem"><a class="dropdown-item" *ngIf="auth0Service.isUserAuthenticated()" >Settings</a></li>
           <li role="menuitem"><a class="dropdown-item" >About hugo</a></li>
           <li class="divider dropdown-divider"></li>
-          <li role="menuitem"><a class="dropdown-item" (click)="onLogout()" *ngIf="auth0Service.isAuthenticated()" >Logout</a></li>
-          <li role="menuitem"><a class="dropdown-item" (click)="onLogin()" *ngIf="!auth0Service.isAuthenticated()">Login</a></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="onLogout()" *ngIf="auth0Service.isUserAuthenticated()" >Logout</a></li>
+          <li role="menuitem"><a class="dropdown-item" (click)="onLogin()" *ngIf="!auth0Service.isUserAuthenticated()">Login</a></li>
         </ul>
       </div>
   </div>

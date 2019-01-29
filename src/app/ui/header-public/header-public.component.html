@@ -9,19 +9,19 @@
           <button class="btn btn-outline-secondary" id="login"
                   style="cursor: pointer; color: darkslategray"
                   (click)="onLogin()"
-          *ngIf="!authService.isAuthenticated()">
+          *ngIf="!authService.isUserAuthenticated()">
             Login
           </button>
           <button class="btn btn-outline-secondary" id="register"
                   style="cursor: pointer; color: darkslategray"
                   (click)="onRegister()"
-                  *ngIf="!authService.isAuthenticated()">
+                  *ngIf="!authService.isUserAuthenticated()">
             Register
           </button>
           <button class="btn btn-outline-secondary" id="logout"
                   style="cursor: pointer; color: darkslategray"
                   (click)="onLogout()"
-                  *ngIf="authService.isAuthenticated()">
+                  *ngIf="authService.isUserAuthenticated()">
             Logout
           </button>
         </li>

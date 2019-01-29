@@ -12,19 +12,18 @@ import {Logout, StartSelectAuthor} from '../../profile/store/profile.actions';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  public authorState: Observable<{ selectedAuthor: AuthorModel }>;
+  selectedAuthor: AuthorModel;
 
   constructor(public auth0Service: AuthService,
-              private router: Router,
-              private store: Store<{
-                profile: {
-                  selectedAuthor: AuthorModel
-                }
-              }>) {
+              private router: Router) {
   }
 
   ngOnInit() {
-    this.authorState = this.store.select('profile');
+    this.auth0Service.selectedAuthor.subscribe(
+      (author) => {
+        this.selectedAuthor = author;
+      }
+    );
   }
 
   onLogin() {
@@ -39,6 +38,13 @@ export class HeaderComponent implements OnInit {
   }
 
   onSelectAuthor() {
-    this.router.navigate(['/profiles']);
+    this.auth0Service.switchAuthor()
+      .subscribe((res) => {
+        if (res) {
+          alert('author signed out');
+          this.auth0Service.selectedAuthor.next(null);
+          this.router.navigate(['/profiles']);
+        }
+      });
   }
 }

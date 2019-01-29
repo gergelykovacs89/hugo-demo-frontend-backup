@@ -26,7 +26,8 @@ export class CallbackProfileSelectComponent implements OnInit {
   }
 
 
-  onSelectProfile(authorName: string) {
+  onSelectProfile(authorId: string, authorName: string) {
+    this.auth0Service.loginAuthor(authorId);
     this.router.navigate(
       ['/profile/', authorName]
     );

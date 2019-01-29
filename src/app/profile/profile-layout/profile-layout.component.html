@@ -7,13 +7,13 @@
       style="max-height: 180px; max-width: 180px"
     >
     <h1 id="author-name">{{ author.name }}
-      <button *ngIf="!canFollow() && !isSelf() && auth0Service.isAuthenticated()" (click)="Follow()"
+      <button *ngIf="!canFollow() && !isSelf() && auth0Service.isUserAuthenticated()" (click)="Follow()"
               class="btn btn-secondary btn-sm">Follow
       </button>
-      <button *ngIf="canFollow() && !isSelf() && auth0Service.isAuthenticated()" (click)="Unfollow()"
+      <button *ngIf="canFollow() && !isSelf() && auth0Service.isUserAuthenticated()" (click)="Unfollow()"
               class="btn btn-outline-secondary btn-sm">Unfollow
       </button>
-      <button *ngIf="isSelf() && auth0Service.isAuthenticated()" class="btn btn-outline-secondary btn-sm disabled">It's
+      <button *ngIf="isSelf() && auth0Service.isUserAuthenticated()" class="btn btn-outline-secondary btn-sm disabled">It's
         a you!
       </button>
     </h1>

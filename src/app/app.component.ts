@@ -12,9 +12,7 @@ import {Router} from '@angular/router';
 
 
 export class AppComponent {
-  constructor(private auth0Service: AuthService,
-              private store: Store<AppState>,
-              private router: Router) {
+  constructor(private auth0Service: AuthService) {
     this.auth0Service.handleAuthentication();
   }
 }

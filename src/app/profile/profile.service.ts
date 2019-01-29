@@ -1,14 +1,16 @@
 import {Injectable, OnInit} from '@angular/core';
 import {AuthorModel} from '../shared/models/author.model';
 import {UserService} from './user.service';
-import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {parse, stringify} from 'flatted/esm';
 import {AuthService} from '../auth/auth.service';
+import {Observable} from 'rxjs';
 
 const ADD_AUTHOR_API_ENDPOINT = 'http://localhost:3000/api/new-author';
 const UPDATE_AUTHOR_API_ENDPOINT = 'http://localhost:3000/api/update-author';
 const DELETE_AUTHOR_API_ENDPOINT = 'http://localhost:3000/api/delete-author';
+const GET_AUTHOR_BY_NAME_API_ENDPOINT = 'http://localhost:3000/api/get-author-by-name';
+
 
 
 @Injectable({
@@ -21,12 +23,13 @@ export class ProfileService implements OnInit {
   }
 
   public userAuthors: AuthorModel[];
-
+  selectedAuthor: AuthorModel;
 
   ngOnInit() {
     this.authService.getAuthors().subscribe((authors) => {
       this.userAuthors = authors;
     });
+    this.authService.selectedAuthor.subscribe(author => this.selectedAuthor = author);
   }
 
   addAuthor(author: AuthorModel) {
@@ -62,10 +65,14 @@ export class ProfileService implements OnInit {
     return this.httpClient.delete(DELETE_AUTHOR_API_ENDPOINT, {headers: headers});
   }
 
+  getAuthorByName(authorName: string): Observable<AuthorModel> {
+    const userToken = JSON.parse(localStorage.getItem('userToken'));
+    const headers = new HttpHeaders()
+      .append('x-auth', userToken)
+      .append('authName', authorName);
+    return this.httpClient.get<AuthorModel>(GET_AUTHOR_BY_NAME_API_ENDPOINT, {headers: headers});
+}
 
-  getAuthorByName(name: string): Observable<AuthorModel> {
-    return this.httpClient.get<AuthorModel>('http://localhost:8080/author/' + name);
-  }
 
   addFollower(follower: AuthorModel, following: AuthorModel) {
 
