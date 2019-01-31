@@ -10,6 +10,8 @@ const ADD_AUTHOR_API_ENDPOINT = 'http://localhost:3000/api/new-author';
 const UPDATE_AUTHOR_API_ENDPOINT = 'http://localhost:3000/api/update-author';
 const DELETE_AUTHOR_API_ENDPOINT = 'http://localhost:3000/api/delete-author';
 const GET_AUTHOR_BY_NAME_API_ENDPOINT = 'http://localhost:3000/api/get-author-by-name';
+const FOLLOW_AUTHOR_API_ENDPOINT = 'http://localhost:3000/api/follow-author';
+const UNFOLLOW_AUTHOR_API_ENDPOINT = 'http://localhost:3000/api/unfollow-author';
 
 
 
@@ -22,14 +24,16 @@ export class ProfileService implements OnInit {
               private authService: AuthService) {
   }
 
-  public userAuthors: AuthorModel[];
+  userAuthors: AuthorModel[];
   selectedAuthor: AuthorModel;
 
   ngOnInit() {
-    this.authService.getAuthors().subscribe((authors) => {
+    this.authService.authors.subscribe(authors => {
       this.userAuthors = authors;
+      this.authService.selectedAuthor.subscribe(author => {
+        this.selectedAuthor = author;
+      });
     });
-    this.authService.selectedAuthor.subscribe(author => this.selectedAuthor = author);
   }
 
   addAuthor(author: AuthorModel) {
@@ -73,12 +77,23 @@ export class ProfileService implements OnInit {
     return this.httpClient.get<AuthorModel>(GET_AUTHOR_BY_NAME_API_ENDPOINT, {headers: headers});
 }
 
-
-  addFollower(follower: AuthorModel, following: AuthorModel) {
-
+  followAuthor(authorSelfId: string, authorToFollowId: string) {
+    const userToken = JSON.parse(localStorage.getItem('userToken'));
+    const headers = new HttpHeaders()
+      .append('x-auth', userToken);
+    return this.httpClient.post(FOLLOW_AUTHOR_API_ENDPOINT, {
+      authorSelfId: authorSelfId,
+      authorToFollowId: authorToFollowId
+    }, {headers: headers});
   }
 
-  removeFollower(follower: AuthorModel, following: AuthorModel) {
-
+  unfollowAuthor(authorSelfId: string, authorToUnfollowId: string) {
+    const userToken = JSON.parse(localStorage.getItem('userToken'));
+    const headers = new HttpHeaders()
+      .append('x-auth', userToken);
+    return this.httpClient.post(UNFOLLOW_AUTHOR_API_ENDPOINT, {
+      authorSelfId: authorSelfId,
+      authorToUnfollowId: authorToUnfollowId
+    }, {headers: headers});
   }
 }

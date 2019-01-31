@@ -8,8 +8,8 @@ export class AuthorModel {
   public name: string;
   public stories: StoryTreeModel[] = [];
   public texts: TextModel[] = [];
-  public following: AuthorModel[] = [];
-  public followers: AuthorModel[] = [];
+  public following: string[] = [];
+  public followers: string[] = [];
 
 
   constructor(imgPath: string, description: string, name: string, _id: string) {

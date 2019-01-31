@@ -31,9 +31,8 @@ export class UserService {
     return this.httpClient.delete(LOGOUT_API_ENDPOINT, {headers: headers});
   }
 
-  removeAuthorToken(userToken: string, authorToken: string) {
+  removeAuthorToken(authorToken: string) {
     const headers = new HttpHeaders()
-      .append('x-auth', userToken)
       .append('authorToken', authorToken);
     return this.httpClient.delete(LOGOUT_AUTHOR_API_ENDPOINT, {headers: headers});
   }

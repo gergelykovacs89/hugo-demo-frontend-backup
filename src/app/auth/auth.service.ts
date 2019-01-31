@@ -5,14 +5,14 @@ import {map} from 'rxjs/operators';
 import {UserService} from '../profile/user.service';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {AuthorModel} from '../shared/models/author.model';
-
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 const LOGIN_API_ENDPOINT = 'http://localhost:3000/api/login';
 const GET_AUTHORS_API_ENDPOINT = 'http://localhost:3000/api/user-authors';
 const GET_AUTHOR_BY_ID_API_ENDPOINT = 'http://localhost:3000/api/get-author-by-id';
 const GET_AUTHOR_BY_TOKEN_API_ENDPOINT = 'http://localhost:3000/api/get-author-by-token';
 
-
+const helper = new JwtHelperService();
 @Injectable({
   providedIn: 'root'
 })
@@ -48,9 +48,7 @@ export class AuthService {
   }
 
   signIngAuthor(authorId: string): Observable<AuthorModel> {
-    const userToken = JSON.parse(localStorage.getItem('userToken'));
     const headers = new HttpHeaders()
-      .append('x-auth', userToken)
       .append('authName', authorId);
     return this.httpClient.get(GET_AUTHOR_BY_ID_API_ENDPOINT, {headers: headers})
       .pipe(map(res => {
@@ -62,9 +60,8 @@ export class AuthService {
   }
 
   switchAuthor(): Observable<any> {
-    const userToken = JSON.parse(localStorage.getItem('userToken'));
     const authorToken = JSON.parse(localStorage.getItem('authorToken'));
-    return this.userService.removeAuthorToken(userToken, authorToken)
+    return this.userService.removeAuthorToken(authorToken)
       .pipe(map(res => {
         if (res['status'] === 'AUTHOR_LOGGED_OUT') {
           localStorage.removeItem('authorToken');
@@ -74,38 +71,26 @@ export class AuthService {
   }
 
   getAuthorsByUser(): Observable<any> {
-    const userToken = JSON.parse(localStorage.getItem('userToken'));
-    const headers = new HttpHeaders()
-      .append('x-auth', userToken);
-    return this.httpClient.get<any>(GET_AUTHORS_API_ENDPOINT, {headers: headers});
+    return this.httpClient.get<any>(GET_AUTHORS_API_ENDPOINT);
   }
 
-  getSelectedAuthor(): Observable<any> {
-    const userToken = JSON.parse(localStorage.getItem('userToken'));
+  getSelectedAuthor(): AuthorModel {
     const authorToken = JSON.parse(localStorage.getItem('authorToken'));
-
-    const headers = new HttpHeaders()
-      .append('x-auth', userToken)
-      .append('authorToken', authorToken);
-    return this.httpClient.get<any>(GET_AUTHOR_BY_TOKEN_API_ENDPOINT, {headers: headers});
+    const authorId = helper.decodeToken(authorToken)._id;
+    return this.authors.getValue().find(author => author._id === authorId);
   }
 
   public handleAuthentication(): void {
       if (this.isUserAuthenticated() && !this.isAuthorAuthenticated()) {
         this.getAuthorsByUser()
           .subscribe((authors) => {
-            this.authors.next(authors);
+            this.setAuthors(authors);
             this.router.navigate(['/profiles']);
           });
       } else if (this.isUserAuthenticated() && this.isAuthorAuthenticated()) {
         this.getAuthorsByUser()
           .subscribe((authors) => {
-            this.authors.next(authors);
-          });
-        this.getSelectedAuthor()
-          .subscribe((author) => {
-            console.log(author);
-            this.selectedAuthor.next(author);
+            this.setSelectedAuthor(authors);
           });
       } else {
         this.router.navigate(['/']);
@@ -151,4 +136,13 @@ export class AuthService {
   //   localStorage.setItem('expires_at', expiresAt);
   // }
 
+  private setAuthors(authors: AuthorModel[]) {
+    this.authors.next(authors);
+  }
+
+  setSelectedAuthor(authors: AuthorModel[]) {
+    this.authors.next(authors);
+    const selectedAuthor = this.getSelectedAuthor();
+    this.selectedAuthor.next(selectedAuthor);
+  }
 }
