@@ -107,6 +107,7 @@ li:not(:last-child) {
   align-items: center;
   justify-content: center;
   max-height: 10rem;
+  font-size:calc(12px + 0.5vw);
 }
 
 #edit-button {
@@ -122,13 +123,15 @@ li:not(:last-child) {
 }
 
 #delete-button {
-  height: 5vw;
-  width: 5vw
+  justify-content: center;
+  height: calc(20px + 2.5vw);
+  width: calc(20px + 2.5vw);
 }
 
 #save-button {
-  height: 5vw;
-  width: 5vw
+  text-align: center;
+  height: calc(20px + 2.5vw);
+  width: calc(40px + 2.5vw);
 }
 
 

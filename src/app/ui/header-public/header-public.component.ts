@@ -1,8 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../../auth/auth.service';
-import {Store} from '@ngrx/store';
-import {AuthorModel} from '../../shared/models/author.model';
-import {Logout} from '../../profile/store/profile.actions';
 import {Router} from '@angular/router';
 
 @Component({
@@ -14,11 +11,6 @@ export class HeaderPublicComponent implements OnInit {
   public isCollapsed = true;
 
   constructor(private authService: AuthService,
-              private store: Store<{
-                profile: {
-                  selectedAuthor: AuthorModel
-                }
-              }>,
               private router: Router) {
   }
 

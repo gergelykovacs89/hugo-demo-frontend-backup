@@ -9,15 +9,12 @@ html {
 
 .card-title {
   text-align: center;
-  font-size: 2vw;
+  font-size:calc(12px + 1.5vw);
 }
 
 @media only screen and (max-width: 800px) {
   .profile-list-label {
     font-size: 30px;
-  }
-  .card-title {
-    font-size: 10px;
   }
 }
 
@@ -77,7 +74,6 @@ li:not(:last-child) {
 }
 .profile-select .card-title{
   color: darkslategray;
-
 }
 
 
@@ -93,6 +89,7 @@ li:not(:last-child) {
   align-items: center;
   justify-content: center;
   max-height: 10vw;
+  font-size:calc(12px + 0.5vw);
 }
 
 

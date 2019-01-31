@@ -1,49 +1,62 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-white">
-  <div class="container-fluid">
-  <a class="navbar-brand" style="color: darkslategray" routerLink="/"><h2>hugo</h2></a>
-    <div class="navbar-collapse">
-      <div class="search-container" *ngIf="auth0Service.isUserAuthenticated()">
-        <form>
-          <input id="search" type="text" placeholder="Search.." name="search" size="50">
-        </form>
-      </div>
-      <div *ngIf="selectedAuthor; else loading">
-        <div class="navbar-collapse"
-             *ngIf="auth0Service.isUserAuthenticated()"
-        >
-          <a class="nav-item nav-link"
-             style="cursor: pointer"
-             routerLink='/profile/{{ selectedAuthor.name }}'>
-            <img
-              [src]="selectedAuthor.imgPath"
-              alt="{{ selectedAuthor.name}}"
-              class="img-fluid"
-            >{{ selectedAuthor.name }}
-          </a>
-          <button class="btn btn-outline-secondary"
-                  style="cursor: pointer; color: darkslategray"
-                  routerLink="/new-story">
-            New Story
-          </button>
-        </div>
-      </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-white" id="navbar">
+  <a class="navbar-brand" style="color: darkslategray" routerLink="/">hugo</a>
+  <div class="search-container" *ngIf="auth0Service.isUserAuthenticated()">
+    <form>
+      <input id="search" type="text" placeholder="Search.." name="search">
+    </form>
+  </div>
+  <div class="navbar nav-item" id="controller">
+    <button class="btn btn-outline-secondary"
+            id="new-story"
+            routerLink="/new-story">
+      New Story
+    </button>
+    <div class="nav-author" *ngIf="selectedAuthor; else loading">
+      <a class="nav-author-prof-sm"
+         style="cursor: pointer"
+         routerLink='/profile/{{ selectedAuthor.name }}'>
+        <img
+          [src]="selectedAuthor.imgPath"
+          alt="{{ selectedAuthor.name}}"
+          class="img-fluid"
+        ><p>{{ selectedAuthor.name}}</p>
+      </a>
     </div>
-      <div class="btn-group" dropdown placement="bottom right">
-        <button id="button-alignment" dropdownToggle type="button"
-                class="btn btn-secondary"
-                aria-controls="dropdown-alignment" style="border-radius: 60%"><i class="fa fa-cog fa-lg"></i></button>
-        <ul id="dropdown-alignment" *dropdownMenu class="dropdown-menu dropdown-menu-right"
-            role="menu" aria-labelledby="button-alignment">
-          <li role="menuitem"><a class="dropdown-item" (click)="onSelectAuthor()" *ngIf="auth0Service.isUserAuthenticated()" >Select Author</a></li>
-          <li class="divider dropdown-divider"></li>
-          <li role="menuitem"><a class="dropdown-item" *ngIf="auth0Service.isUserAuthenticated()" >Settings</a></li>
-          <li role="menuitem"><a class="dropdown-item" >About hugo</a></li>
-          <li class="divider dropdown-divider"></li>
-          <li role="menuitem"><a class="dropdown-item" (click)="onLogout()" *ngIf="auth0Service.isUserAuthenticated()" >Logout</a></li>
-          <li role="menuitem"><a class="dropdown-item" (click)="onLogin()" *ngIf="!auth0Service.isUserAuthenticated()">Login</a></li>
-        </ul>
-      </div>
+    <div class="btn-group dropdown-menu-right" dropdown>
+      <button id="button-alignment" dropdownToggle type="button"
+              class="btn btn-secondary"
+              aria-controls="dropdown-alignment" style="border-radius: 50%"><i class="fa fa-cog fa-lg"></i></button>
+      <ul id="dropdown-alignment" *dropdownMenu class="dropdown-menu dropdown-menu-right"
+          role="menu" aria-labelledby="button-alignment">
+        <li class="dropdown-item"><a (click)="onSelectAuthor()">Select Author</a></li>
+        <li class="dropdown-item"><a (click)="onLogout()">Logout</a></li>
+      </ul>
+    </div>
   </div>
 </nav>
 <ng-template #loading>Loading User Data...</ng-template>
+
+
+<!--working dropdown directive-->
+
+<!--<div class="btn-group" dropdown placement="bottom right">-->
+  <!--<button id="button-alignment" dropdownToggle type="button"-->
+          <!--class="btn btn-secondary"-->
+          <!--aria-controls="dropdown-alignment" style="border-radius: 60%"><i class="fa fa-cog fa-lg"></i></button>-->
+  <!--<ul id="dropdown-alignment" *dropdownMenu class="dropdown-menu dropdown-menu-right"-->
+      <!--role="menu" aria-labelledby="button-alignment">-->
+
+  <!--</ul>-->
+<!--</div>-->
+
+
+
+<!--<button class="navbar-toggler" type="button"  [attr.aria-expanded]="isCollapsed" aria-controls="collapse" (click)="isCollapsed = !isCollapsed" >-->
+<!--<span class="navbar-toggler-icon"></span>-->
+<!--</button>-->
+<!--<div class="collapse navbar-collapse pull-right" id="collapse" [ngbCollapse]="isCollapsed">-->
+<!--<ul class="navbar-nav" style="color: darkslategray">-->
+
+<!--</ul>-->
+<!--</div>-->
 
