@@ -25,15 +25,16 @@ export class UserService {
     });
   }
 
-  removeUserToken(userToken: string) {
+  removeUserToken(userToken: string, authorToken: string) {
     const headers = new HttpHeaders()
-      .append('x-auth', userToken);
+      .append('x-auth', userToken)
+      .append('authAuth', authorToken);
     return this.httpClient.delete(LOGOUT_API_ENDPOINT, {headers: headers});
   }
 
   removeAuthorToken(authorToken: string) {
     const headers = new HttpHeaders()
-      .append('authorToken', authorToken);
+      .append('authortoken', authorToken);
     return this.httpClient.delete(LOGOUT_AUTHOR_API_ENDPOINT, {headers: headers});
   }
 

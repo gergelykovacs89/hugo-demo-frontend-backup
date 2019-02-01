@@ -26,10 +26,6 @@ export class HeaderComponent implements OnInit {
     );
   }
 
-  onLogin() {
-    this.router.navigate(['/login']);
-  }
-
   onLogout() {
     this.auth0Service.logout().subscribe((res) => {
       alert(res['status']);

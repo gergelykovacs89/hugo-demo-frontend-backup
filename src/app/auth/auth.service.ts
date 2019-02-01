@@ -99,7 +99,11 @@ export class AuthService {
 
   public logout() {
     const userToken = JSON.parse(localStorage.getItem('userToken'));
-    return this.userService.removeUserToken(userToken)
+    let authorToken = JSON.parse(localStorage.getItem('authorToken'));
+    if (!authorToken) {
+      authorToken = '';
+    }
+    return this.userService.removeUserToken(userToken, authorToken)
       .pipe(map(res => {
         if (res['status'] === 'LOGGED_OUT') {
           localStorage.removeItem('currentUser');

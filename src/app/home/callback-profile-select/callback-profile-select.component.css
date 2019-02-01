@@ -1,6 +1,6 @@
-html {
-  font-size: 1vw;
-}
+/*html {*/
+  /*font-size: 1vw;*/
+/*}*/
 
 .profile-list-label {
   text-align: center;
@@ -31,7 +31,7 @@ li:not(:last-child) {
 }
 
 .container-fluid {
-  margin-top: 2.5vw;
+  margin-top: 1.5vw;
 }
 
 .profile-select {
@@ -74,12 +74,12 @@ li:not(:last-child) {
 }
 .profile-select .card-title{
   color: darkslategray;
+  font-size: calc(20px + 0.5vw);
 }
 
 
-.profile-list-label h4 {
-  font-size: 4rem;
-  text-align: center;
+.profile-list-label {
+  margin-bottom: 2vw;
 }
 
 

@@ -48,7 +48,7 @@
   padding: 1vw;
   float: left;
   margin-right: 2vw;
-  border:  1px solid darkslategray;
+  border: 1px solid darkslategray;
   font-size:calc(12px + 0.5vw);
 }
 
@@ -70,6 +70,8 @@
   object-fit: cover;
   border-radius: 50%;
 }
+
+
 
 
 
